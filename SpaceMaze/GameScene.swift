@@ -43,15 +43,23 @@ class GameScene: SKScene {
             // Here is where you need to insert you code to set how much
             // to move in the x direction (left / right) or the y direction (up / down)
             if (command == TouchCommand.MOVE_UP) {
-              //  move_y = 30
+                move_y = 30
             }
-            
+            if (command == TouchCommand.MOVE_DOWN) {
+                move_y = -30
+            }
+            if (command == TouchCommand.MOVE_LEFT) {
+                move_x = -30
+            }
+            if (command == TouchCommand.MOVE_RIGHT) {
+                move_x = 30
+            }
+           
             if (move_x != 0 || move_y != 0) {
                 let action:SKAction = SKAction.moveByX(move_x, y: move_y, duration: 0.25)
                 self.character.runAction(action)
             }
         }
-        println("Position: \(self.character.position)")
     }
     
     // Figures out which way the user wants to move the character based on which
@@ -61,6 +69,7 @@ class GameScene: SKScene {
         let frame:CGRect = node.frame
         let height = CGRectGetHeight(frame)
         let width = CGRectGetWidth(frame)
+        println("Touch position: \(location) x/width: \(location.x/width) y/height: \(location.y/height)")
         
         if (location.y/height < 0.25) {
             return TouchCommand.MOVE_DOWN
